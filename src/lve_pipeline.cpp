@@ -55,8 +55,7 @@ namespace lve {
                                            const std::string& fragFilePath,
                                            const PipelineConfigInfo& configInfo) {
 
-    assert(
-           configInfo.pipelineLayout != VK_NULL_HANDLE &&
+    assert(configInfo.pipelineLayout != VK_NULL_HANDLE &&
            "Cannot create graphics pipeline:: no pipelinelayout provided in configInfo");
     assert(configInfo.renderPass != VK_NULL_HANDLE &&
            "Cannot create graphics pipeline:: no renderPass provided in configInfo");
