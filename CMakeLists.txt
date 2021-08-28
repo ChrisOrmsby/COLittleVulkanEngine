@@ -39,5 +39,11 @@ target_include_directories(main PRIVATE /libs/tinyObjectLoader/)
 # Add shaders to the build system
 add_shader(main simple_shader.vert)
 add_shader(main simple_shader.frag)
+# Copy models to build directory
+add_custom_command(
+        TARGET main POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/models
+                ${CMAKE_CURRENT_BINARY_DIR}/model)
 # Link all external libs to main
 target_link_libraries(main ${CONAN_LIBS})
