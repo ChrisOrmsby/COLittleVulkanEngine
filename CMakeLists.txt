@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
-project(VulkanTest)
+# Project information
+cmake_minimum_required(VERSION 3.18)
+project(COLittleVulkan)
 
 set(CMAKE_CXX_STANDARD 23)
 
