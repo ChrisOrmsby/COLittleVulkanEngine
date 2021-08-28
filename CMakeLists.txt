@@ -3,7 +3,11 @@ cmake_minimum_required(VERSION 3.18)
 project(COLittleVulkan)
 # C++ configuration
 set(CMAKE_CXX_STANDARD 20)
+# TODO I don't really like throwing all the shaders in one folder
+#  I'd prefer if they were bundled with the code that uses them, but the project isn't big enough
+#  to warran those types of changes yet; plus this is easier.
 function(add_shader TARGET SHADER)
+    # Find GLSLC for building sprv shaders
     find_program(GLSLC glslc)
     set(current-shader-path ${CMAKE_CURRENT_SOURCE_DIR}/shaders/${SHADER})
     set(current-output-path ${CMAKE_BINARY_DIR}/shaders/${SHADER}.spv)
@@ -21,8 +25,9 @@ function(add_shader TARGET SHADER)
     target_sources(${TARGET} PRIVATE ${current-output-path})
 endfunction(add_shader)
 find_package(glfw3 REQUIRED)
+# External C++ packages
+find_package(Threads REQUIRED)
 find_package(Vulkan REQUIRED)
-target_link_libraries(main Vulkan::Vulkan)
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(main ${SOURCES})
 add_shader(main triangle.vert)
