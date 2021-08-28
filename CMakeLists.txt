@@ -1,7 +1,6 @@
 # Project information
 cmake_minimum_required(VERSION 3.18)
 project(COLittleVulkan)
-find_package(Threads REQUIRED)
 # C++ configuration
 set(CMAKE_CXX_STANDARD 20)
 function(add_shader TARGET SHADER)
