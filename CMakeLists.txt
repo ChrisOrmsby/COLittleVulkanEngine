@@ -2,13 +2,9 @@
 cmake_minimum_required(VERSION 3.18)
 project(COLittleVulkan)
 
-set(CMAKE_CXX_STANDARD 23)
-
-set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
-
-set(GCC_COVERAGE_LINK_FLAGS "-ldl -lX11 -lXxf86vm -lXrandr -lXi")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+# C++ configuration
+set(CMAKE_CXX_STANDARD 20)
 
 function(add_shader TARGET SHADER)
     find_program(GLSLC glslc)
