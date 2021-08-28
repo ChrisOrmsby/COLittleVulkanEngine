@@ -30,7 +30,11 @@ find_package(Threads REQUIRED)
 find_package(Vulkan REQUIRED)
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(main ${SOURCES})
+# TODO maybe glob these instead
+# Add shaders to the build system
 add_shader(main triangle.vert)
 add_shader(main triangle.frag)
+# Link all external libs to main
 target_link_libraries(main glfw)
 target_link_libraries(main Threads::Threads)
+target_link_libraries(main Vulkan::Vulkan)
