@@ -35,8 +35,8 @@ file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(main ${SOURCES})
 # TODO maybe glob these instead
 # Add shaders to the build system
-add_shader(main triangle.vert)
-add_shader(main triangle.frag)
+add_shader(main simple_shader.vert)
+add_shader(main simple_shader.frag)
 # Link all external libs to main
 target_link_libraries(main glfw)
 target_link_libraries(main Threads::Threads)
