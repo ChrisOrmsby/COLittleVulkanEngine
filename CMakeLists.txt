@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD 20)
 #  to warran those types of changes yet; plus this is easier.
 function(add_shader TARGET SHADER)
     # Find GLSLC for building sprv shaders
+    # TODO fail configure more loudly if glslc is not found
     find_program(GLSLC glslc)
     set(current-shader-path ${CMAKE_CURRENT_SOURCE_DIR}/shaders/${SHADER})
     set(current-output-path ${CMAKE_BINARY_DIR}/shaders/${SHADER}.spv)
@@ -25,20 +26,18 @@ function(add_shader TARGET SHADER)
     target_sources(${TARGET} PRIVATE ${current-output-path})
 endfunction(add_shader)
 # External C++ packages
-find_package(Threads REQUIRED)
-find_package(Vulkan REQUIRED)
 # 3rd party packages handled by conan see conanfile.txt
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 # Glob sources and create executable
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(main ${SOURCES})
+# Include directory for tinyObjectLoader
+# TODO maybe replace this with something a bit more robust like AssImp
+target_include_directories(main PRIVATE /libs/tinyObjectLoader/)
 # TODO maybe glob these instead
 # Add shaders to the build system
 add_shader(main simple_shader.vert)
 add_shader(main simple_shader.frag)
 # Link all external libs to main
-target_link_libraries(main glfw)
-target_link_libraries(main Threads::Threads)
-target_link_libraries(main Vulkan::Vulkan)
 target_link_libraries(main ${CONAN_LIBS})
