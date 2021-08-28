@@ -24,10 +24,13 @@ function(add_shader TARGET SHADER)
     set_source_files_properties(${current-output-path} PROPERTIES GENERATED TRUE)
     target_sources(${TARGET} PRIVATE ${current-output-path})
 endfunction(add_shader)
-find_package(glfw3 REQUIRED)
 # External C++ packages
 find_package(Threads REQUIRED)
 find_package(Vulkan REQUIRED)
+# 3rd party packages handled by conan see conanfile.txt
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+# Glob sources and create executable
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(main ${SOURCES})
 # TODO maybe glob these instead
@@ -38,3 +41,4 @@ add_shader(main triangle.frag)
 target_link_libraries(main glfw)
 target_link_libraries(main Threads::Threads)
 target_link_libraries(main Vulkan::Vulkan)
+target_link_libraries(main ${CONAN_LIBS})
