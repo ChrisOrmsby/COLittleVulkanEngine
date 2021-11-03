@@ -6,11 +6,23 @@
 namespace lve {
   void KeyboardMovementController::moveInPlaneXZ(
          GLFWwindow* window, float dt, LveGameObject& gameObject) {
+    glm::vec3 translate{0};
+
+    if (glfwGetKey(window, keys.lookRight) == GLFW_PRESS) translate.x -= 1.f;
+    if (glfwGetKey(window, keys.lookLeft) == GLFW_PRESS) translate.x += 1.f;
+    if (glfwGetKey(window, keys.lookUp) == GLFW_PRESS) translate.z -= 1.f;
+    if (glfwGetKey(window, keys.lookDown) == GLFW_PRESS) translate.z += 1.f;
+
+    if (glm::dot(translate, translate) > std::numeric_limits<float>::epsilon()) {
+      gameObject.transform.translation += dt * glm::normalize(translate);
+    }
+
     glm::vec3 rotate{0};
-    if (glfwGetKey(window, keys.lookRight) == GLFW_PRESS) rotate.y += 1.f;
-    if (glfwGetKey(window, keys.lookLeft) == GLFW_PRESS) rotate.y -= 1.f;
-    if (glfwGetKey(window, keys.lookUp) == GLFW_PRESS) rotate.x += 1.f;
-    if (glfwGetKey(window, keys.lookDown) == GLFW_PRESS) rotate.x -= 1.f;
+
+    //if (glfwGetKey(window, keys.lookRight) == GLFW_PRESS) rotate.y += 1.f;
+    //if (glfwGetKey(window, keys.lookLeft) == GLFW_PRESS) rotate.y -= 1.f;
+    //if (glfwGetKey(window, keys.lookUp) == GLFW_PRESS) rotate.x += 1.f;
+    //if (glfwGetKey(window, keys.lookDown) == GLFW_PRESS) rotate.x -= 1.f;
 
     if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon()) {
       gameObject.transform.rotation += lookSpeed * dt * glm::normalize(rotate); 

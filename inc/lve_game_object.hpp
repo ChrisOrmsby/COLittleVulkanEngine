@@ -7,6 +7,7 @@
 
 // std
 #include <memory>
+#include <limits>
 
 namespace lve {
 
@@ -43,6 +44,13 @@ namespace lve {
     glm::vec3 color{};
     TransformComponent transform{};
 
+    // Unused code
+    void moveLeft (float dt);
+    void moveRight (float dt);
+    void moveForward (float dt);
+    void moveBackward (float dt);
+    // end
+    
   private:
     LveGameObject(id_t objId) :id{objId} {};
 

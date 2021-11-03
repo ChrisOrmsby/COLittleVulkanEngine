@@ -1,5 +1,8 @@
 #include "../inc/lve_game_object.hpp"
 
+// std
+#include <limits>
+
 namespace lve {
   glm::mat4 TransformComponent::mat4() {
     const float c3 = glm::cos(rotation.z);
@@ -56,5 +59,17 @@ namespace lve {
         invScale.z * (c1 * c2),
       }
     };
+  }
+
+  /*
+   * moveLeft
+   */
+  void LveGameObject::moveLeft(float dt) {
+    glm::vec3 translate{0};
+    translate.x += 1.f;
+
+    if (glm::dot(translate, translate) > std::numeric_limits<float>::epsilon()) {
+      transform.translation += dt * glm::normalize(translate);
+    }
   }
 };
